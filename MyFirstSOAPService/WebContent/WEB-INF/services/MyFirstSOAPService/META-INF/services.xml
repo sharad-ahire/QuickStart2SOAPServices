@@ -1,0 +1,15 @@
+<serviceGroup>
+	<service name="MyFirstSOAPService" targetNamespace="http://ws.apache.org/axis2/sample/helloworldservice">
+		<description>
+			My First SOAP Web Service
+		</description>
+		<schema schemaNamespace="http://ws.apache.org/axis2/sample/helloworldservice/xsd" />
+
+		<parameter name="ServiceClass" locked="false">com.ssa.soap.sample.HelloWorldService
+		</parameter>
+
+		<operation name="printMessage">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation>
+	</service>
+</serviceGroup>

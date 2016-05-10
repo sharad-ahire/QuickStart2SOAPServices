@@ -1,0 +1,16 @@
+<serviceGroup>
+	<service name="SSAMobileApplication" targetNamespace="http://www.ssa.com/ssamob/">
+		<description>
+			SSAMobileApplication
+		</description>
+		<schema schemaNamespace="http://www.ssa.com/ssamob/" />
+
+		<parameter name="ServiceClass" locked="false">com.ssa.mobapp.service.SSAMobAppService
+		</parameter>
+
+		<operation name="AddCustomer">
+			<messageReceiver
+				class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation>
+	</service>
+</serviceGroup>

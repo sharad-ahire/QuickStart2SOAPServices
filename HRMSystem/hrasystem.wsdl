@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.ssa.com/hraprotocol/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="hrasystem"
+	targetNamespace="http://www.ssa.com/hraprotocol/">
+
+	<types>
+		<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="http://www.ssa.com/hraprotocol/" xmlns:tns="http://www.ssa.com/hraprotocol/">
+			<xsd:complexType name="EmployeeType">
+				<xsd:sequence>
+					<xsd:element name="Fname" type="xsd:string" />
+					<xsd:element name="Lname" type="xsd:string" />
+					<xsd:element name="JoiningDate" type="xsd:string" />
+					<xsd:element name="Status" type="xsd:string" />
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:element name="AddEmployeeRequest" type="tns:EmployeeType" />
+			<xsd:element name="AddEmployeeResponse">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string" />
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:schema>
+	</types>
+
+	<message name="AddEmployeeRequestMessage">
+		<part name="inputParam" element="tns:AddEmployeeRequest" />
+	</message>
+	<message name="AddEmployeeResponseMessage">
+		<part name="outputParam" element="tns:AddEmployeeResponse" />
+	</message>
+
+	<portType name="HRMSystemPortType">
+		<operation name="AddEmployee">
+			<input message="tns:AddEmployeeRequestMessage" />
+			<output message="tns:AddEmployeeResponseMessage" />
+		</operation>
+	</portType>
+
+	<binding name="HRMSystemSOAPBinding" type="tns:HRMSystemPortType">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<operation name="AddEmployee">
+			<soap:operation soapAction="addEmployee" style="document" />
+			<input>
+				<soap:body parts="inputParam" use="literal" />
+			</input>
+			<output>
+				<soap:body parts="outputParam" use="literal" />
+			</output>
+		</operation>
+	</binding>
+
+	<service name="SSAService">
+		<port name="SSAServicePort" binding="tns:HRMSystemSOAPBinding">
+			<soap:address location="http://www.ssa.com/hrmsystem" />
+		</port>
+	</service>
+
+</definitions>

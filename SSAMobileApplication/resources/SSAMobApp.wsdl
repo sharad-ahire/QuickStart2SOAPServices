@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="ssamobpp" targetNamespace="http://www.ssa.com/ssamob/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.ssa.com/ssamob/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <xsd:schema targetNamespace="http://www.ssa.com/ssamob/" xmlns="http://www.w3.org/2001/XMLSchema">
+
+			<xsd:simpleType name="CustIDtype">
+				<xsd:restriction base="integer"/>
+			</xsd:simpleType>
+
+			<xsd:simpleType name="Description">
+				<xsd:restriction base="string"/>
+			</xsd:simpleType>
+
+			<xsd:complexType name="AddressType">
+				<xsd:sequence>
+					<xsd:element name="AddressLine1" type="tns:Description"/>
+					<xsd:element name="AddressLine2" type="tns:Description"/>
+					<xsd:element name="AddressLine3" type="tns:Description"/>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:simpleType name="DateType">
+				<xsd:restriction base="dateTime"/>
+			</xsd:simpleType>
+
+			<xsd:complexType name="CustomerType">
+				<xsd:sequence>
+					<xsd:element name="CustID" type="tns:CustIDtype"/>
+					<xsd:element name="CustomerName" type="tns:Description"/>
+					<xsd:element name="Address" type="tns:AddressType"/>
+					<xsd:element name="Date" type="tns:DateType"/>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="OperationRequestType">
+				<xsd:sequence>
+					<xsd:element name="Customer" type="tns:CustomerType"/>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="ResponseType">
+				<xsd:sequence>
+					<xsd:any namespace="##any" processContents="skip">
+					</xsd:any>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="OperationRequestResponseType">
+				<xsd:sequence>
+					<xsd:element name="ResponseCode" type="tns:Description"/>
+					<xsd:element name="Response" type="tns:ResponseType"/>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="OperationRequest" type="tns:OperationRequestType"/>
+			<xsd:element name="OperationRequestResponse" type="tns:OperationRequestResponseType"/>
+		</xsd:schema>
+  </types>
+  <message name="AddCustomerResponseMessage">
+    <part name="parameters" element="tns:OperationRequestResponse">
+    </part>
+  </message>
+  <message name="AddCustomerMessage">
+    <part name="parameters" element="tns:OperationRequest">
+    </part>
+  </message>
+  <portType name="SSAMobAppPortType">
+    <operation name="SSAMobApplicationHandler">
+      <input message="tns:AddCustomerMessage">
+    </input>
+      <output message="tns:AddCustomerResponseMessage">
+    </output>
+    </operation>
+  </portType>
+  <binding name="SSAMobAppBinding" type="tns:SSAMobAppPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="SSAMobApplicationHandler">
+      <soap:operation soapAction="AddCustomer" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="SSAMobApp">
+    <port name="SSAMobAppBindingPort" binding="tns:SSAMobAppBinding">
+      <soap:address location="http://www.ssa.com/ssamob"/>
+    </port>
+  </service>
+</definitions>

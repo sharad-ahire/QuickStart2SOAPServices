@@ -1,0 +1,16 @@
+<serviceGroup>
+	<service name="HRMService" targetNamespace="http://www.ssa.com/hraprotocol/">
+		<description>
+			HRMService
+		</description>
+		<schema schemaNamespace="http://www.ssa.com/hraprotocol/" />
+
+		<parameter name="ServiceClass" locked="false">com.ssasystem.service.HRMService
+		</parameter>
+
+		<operation name="addEmployee">
+			<messageReceiver mep="http://www.w3.org/2004/08/wsdl/in-out"
+				class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation>
+	</service>
+</serviceGroup>

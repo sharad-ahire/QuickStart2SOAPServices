@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.ssa.com/hrmsystem/" xmlns:tns="http://www.ssa.com/hrmsystem/">
+	<xsd:complexType name="EmployeeType">
+		<xsd:sequence>
+			<xsd:element name="Fname" type="xsd:string" />
+			<xsd:element name="Lname" type="xsd:string" />
+			<xsd:element name="JoiningDate" type="xsd:string" />
+			<xsd:element name="Status" type="xsd:string" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="AddEmployeeRequest" type="tns:EmployeeType" />
+	<xsd:element name="AddEmployeeResponse">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string" />
+		</xsd:simpleType>
+	</xsd:element>
+</xsd:schema>

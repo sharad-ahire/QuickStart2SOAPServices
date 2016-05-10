@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.ssa.com/ssamob/" xmlns:tns="http://www.ssa.com/ssamob/">
+
+	<simpleType name="CustIDtype">
+		<restriction base="integer" />
+	</simpleType>
+
+	<simpleType name="Description">
+		<restriction base="string" />
+	</simpleType>
+
+	<complexType name="AddressType">
+		<sequence>
+			<element name="AddressLine1" type="tns:Description" />
+			<element name="AddressLine2" type="tns:Description" />
+			<element name="AddressLine3" type="tns:Description" />
+		</sequence>
+	</complexType>
+
+	<simpleType name="DateType">
+		<restriction base="dateTime" />
+	</simpleType>
+
+	<complexType name="CustomerType">
+		<sequence>
+			<element name="CustID" type="tns:CustIDtype" />
+			<element name="CustomerName" type="tns:Description" />
+			<element name="Address" type="tns:AddressType" />
+			<element name="Date" type="tns:DateType" />
+		</sequence>
+	</complexType>
+
+	<complexType name="OperationRequestType">
+		<sequence>
+			<element name="Customer" type="tns:CustomerType" />
+		</sequence>
+	</complexType>
+
+	<complexType name="ResponseType">
+		<sequence>
+			<any namespace="##any" processContents="skip">
+			</any>
+		</sequence>
+	</complexType>
+
+	<complexType name="OperationRequestResponseType">
+		<sequence>
+			<element name="ResponseCode" type="tns:Description" />
+			<element name="Response" type="tns:ResponseType" />
+		</sequence>
+	</complexType>
+
+	<element name="OperationRequest" type="tns:OperationRequestType" />
+	<element name="OperationRequestResponse" type="tns:OperationRequestResponseType" />
+</schema>
